@@ -1,5 +1,0 @@
-{
-  "hooks":{
-    "pre-commit": "cd 2-static-analisys && npm run validate"
-  }
-}
