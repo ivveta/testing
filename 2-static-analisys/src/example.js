@@ -1,7 +1,7 @@
 /** @format */
 
 const username = 'ivveta';
-typeof username === 'string';
+typeof username === 'strg';
 
 if (!('serviceWorker' in navigator)) {
   // you have an old browser :(
