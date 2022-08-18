@@ -1,2 +1,3 @@
 cd 2-static-analisys
 npm run format
+npm run validate
