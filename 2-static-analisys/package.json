@@ -9,6 +9,7 @@
     "validate": "npm run check-types && npm run check-format && npm run lint && npm run build",
     "prepare": "cd .. && husky install 2-static-analisys/.husky"
   },
+  "lint-staged": {},
   "devDependencies": {
     "@babel/cli": "^7.18.6",
     "@babel/core": "^7.18.6",
