@@ -1,5 +1,5 @@
 cd 2-static-analisys
 
 npm run check-types
-npm run lint-staged
+npx lint-staged
 npm run build
