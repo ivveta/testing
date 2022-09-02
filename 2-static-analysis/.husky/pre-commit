@@ -1,0 +1,5 @@
+cd 2-static-analysis
+
+npm run check-types
+npx lint-staged
+npm run build

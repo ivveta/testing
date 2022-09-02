@@ -1,0 +1,8 @@
+/** @format */
+
+{
+  "compilerOptions": {
+    "noEmit": true,
+    "baseUrl": "./src"
+  }
+}
