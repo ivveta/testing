@@ -1,4 +1,4 @@
-cd 2-static-analisys
+cd 2-static-analysis
 
 npm run check-types
 npx lint-staged

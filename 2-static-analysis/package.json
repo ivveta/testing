@@ -7,7 +7,7 @@
     "format": "npm run prettier -- --write",
     "check-format": "npm run prettier -- --list-different",
     "validate": "npm-run-all --parallel check-types check-format lint build",
-    "prepare": "cd .. && husky install 2-static-analisys/.husky"
+    "prepare": "cd .. && husky install 2-static-analysis/.husky"
   },
   "devDependencies": {
     "@babel/cli": "^7.18.6",
