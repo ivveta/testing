@@ -6,5 +6,5 @@ global.React = React;
 
 test('renders', () => {
   const {debug} = render(<AutoScalingText />)
-  debug()
+  // debug()
 })
