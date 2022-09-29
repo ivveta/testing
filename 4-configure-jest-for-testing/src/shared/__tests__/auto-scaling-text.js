@@ -5,5 +5,6 @@ import AutoScalingText from "../auto-scaling-text";
 global.React = React;
 
 test('renders', () => {
-  render(<AutoScalingText />)
+  const {debug} = render(<AutoScalingText />)
+  debug()
 })
