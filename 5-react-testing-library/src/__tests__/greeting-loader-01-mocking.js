@@ -8,11 +8,11 @@ test('loads greetings on click', async () => {
   const testGreeting = 'TEST_GREETING';
 
   mockLoadGreeting.mockResolvedValueOnce({data:{greeting: testGreeting}})
-  const {debug}=render(<GreetingLoader />)
+  const {debug} = render(<GreetingLoader />)
 
  const nameInput = screen.getByLabelText(/name/i);
 
-  const button = screen.getByRole('button');
+  // const button = screen.getByRole('button');
   const loadButton = screen.getByText(/load/i);
 
   nameInput.value="Mary"
