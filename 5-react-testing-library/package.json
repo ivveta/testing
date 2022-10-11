@@ -9,6 +9,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",
+    "react-transition-group": "^4.4.5",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
@@ -54,12 +55,11 @@
     "arrowParens": "always",
     "proseWrap": "preserve",
     "htmlWhitespaceSensitivity": "css",
-    "endOfLine": "lf",
-    "requirePragma": true,
-    "insertPragma": true
+    "endOfLine": "lf"
   },
   "devDependencies": {
     "@types/jest-axe": "^3.5.5",
-    "jest-axe": "^6.0.0"
+    "jest-axe": "^6.0.0",
+    "prettier": "^2.7.1"
   }
 }
