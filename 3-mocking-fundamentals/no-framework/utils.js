@@ -3,9 +3,9 @@ function getWinner(player1, player2) {
   return winningNumber < 1/3
     ? player1
     : ( winningNumber < 2/3
-      ? player2
-      : null
+        ? player2
+        : null
     )
-}
+};
 
-module.exports = {getWinner}
+module.exports = {getWinner};
