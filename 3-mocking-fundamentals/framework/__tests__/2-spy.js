@@ -1,5 +1,6 @@
-const thumbWar = require('../thumb-war')
-const utils = require('../utils')
+import { thumbWar } from '../thumb-war';
+// Namespace import to get getWinner like object method
+import * as utils from '../utils';
 
 test('returns winner', () => {
   jest.spyOn(utils, 'getWinner')

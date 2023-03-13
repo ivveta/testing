@@ -9,8 +9,9 @@ const originalGetWinner = utils.getWinner;
 utils.getWinner = (p1, p2) => p1;
 
 const winner = thumbWar('bmw', 'audi');
+
 assert.equal(winner,'bmw');
-console.log('isEqual: ', winner === 'bmw');
+console.log('isPassing: ', winner === 'bmw');
 
 // не забыть почистить обратно переопределение функции, чтобы не зааффектить другие тесты
-utils.getWinner = originalGetWinner
+utils.getWinner = originalGetWinner;

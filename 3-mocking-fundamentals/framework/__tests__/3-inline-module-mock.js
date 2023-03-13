@@ -1,6 +1,8 @@
-const thumbWar = require('../thumb-war')
-const utils = require('../utils')
+import { thumbWar } from '../thumb-war';
+// Namespace import to get getWinner like object method
+import * as utils from '../utils';
 
+// если в конфиге jest есть resetMocks: true, то мок затрется и не отработает в тесте
 jest.mock('../utils', ()=>(
   {
     getWinner: jest.fn((p1, p2) => p1)

@@ -1,3 +1,10 @@
+// node 3-mocking-fundamentals/no-framework/__tests__/3-inline-module-mock.js
+
+// jest.mock работает, потому что Jest полностью контролирует module system.
+// Это можно сэмулировать с помощью require.cache
+
+require.cache
+
 function fn(impl){
   const mockFn = (...args) => {
     mockFn.mock.calls.push(args);
