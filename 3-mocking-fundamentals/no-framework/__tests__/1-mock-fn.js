@@ -4,13 +4,13 @@ const assert = require('assert');
 const thumbWar = require('../thumb-war');
 const utils = require('../utils');
 
-function fn(impl){
+function fn(impl) {
   const mockFn = (...args) => {
     mockFn.mock.calls.push(args);
     return impl(...args);
-  }
+  };
 
-  mockFn.mock = {calls: []};
+  mockFn.mock = { calls: [] };
   return mockFn;
 }
 
@@ -22,11 +22,10 @@ const winner = thumbWar('bmw', 'audi');
 assert.strictEqual(winner, 'bmw');
 console.log('isPassing: ', winner === 'bmw');
 
-
 assert.deepStrictEqual(utils.getWinner.mock.calls, [
-  [ 'bmw', 'audi' ],
-  [ 'bmw', 'audi' ]
-])
+  ['bmw', 'audi'],
+  ['bmw', 'audi'],
+]);
 
 //cleanup
-utils.getWinner = originalGetWinner
+utils.getWinner = originalGetWinner;

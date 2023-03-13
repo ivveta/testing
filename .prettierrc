@@ -12,7 +12,5 @@
   "arrowParens": "always",
   "proseWrap": "preserve",
   "htmlWhitespaceSensitivity": "css",
-  "endOfLine": "lf",
-  "requirePragma": true,
-  "insertPragma": true
+  "endOfLine": "lf"
 }
