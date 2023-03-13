@@ -1,13 +1,13 @@
-import {useState} from 'react'
+import { useState } from 'react';
 
-export const FavoriteNumber = ({min = 1, max = 9}) => {
-  const [number, setNumber] = useState(0)
-  const [numberEntered, setNumberEntered] = useState(false)
+export const FavoriteNumber = ({ min = 1, max = 9 }) => {
+  const [number, setNumber] = useState(0);
+  const [numberEntered, setNumberEntered] = useState(false);
   function handleChange(event) {
-    setNumber(Number(event.target.value))
-    setNumberEntered(true)
+    setNumber(Number(event.target.value));
+    setNumberEntered(true);
   }
-  const isValid = !numberEntered || (number >= min && number <= max)
+  const isValid = !numberEntered || (number >= min && number <= max);
 
   return (
     <div>
@@ -20,5 +20,5 @@ export const FavoriteNumber = ({min = 1, max = 9}) => {
       />
       {isValid ? null : <div role="alert">The number is invalid</div>}
     </div>
-  )
-}
+  );
+};

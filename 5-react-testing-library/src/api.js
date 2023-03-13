@@ -1,3 +1,3 @@
-export const loadGreeting = async()=>{
-  return 'greeting'
-}
+export const loadGreeting = async () => {
+  return 'greeting';
+};

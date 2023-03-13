@@ -1,12 +1,12 @@
-import * as api from './api'
-import {useState} from "react";
+import * as api from './api';
+import { useState } from 'react';
 
-export const GreetingLoader = ({loadGreeting = api.loadGreeting}) => {
-  const [greeting, setGreeting] = useState('')
+export const GreetingLoader = ({ loadGreeting = api.loadGreeting }) => {
+  const [greeting, setGreeting] = useState('');
   async function loadGreetingForInput(e) {
-    e.preventDefault()
-    const {data} = await loadGreeting(e.target.elements.name.value)
-    setGreeting(data.greeting)
+    e.preventDefault();
+    const { data } = await loadGreeting(e.target.elements.name.value);
+    setGreeting(data.greeting);
   }
   return (
     <form onSubmit={loadGreetingForInput}>
@@ -15,5 +15,5 @@ export const GreetingLoader = ({loadGreeting = api.loadGreeting}) => {
       <button type="submit">Load Greeting</button>
       <div aria-label="greeting">{greeting}</div>
     </form>
-  )
-}
+  );
+};
