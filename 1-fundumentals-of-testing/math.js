@@ -6,4 +6,4 @@ const subtractAsync = (...args) => Promise.resolve(subtract(...args));
 
 // export {sum, subtract, sumAsync, subtractAsync};
 // module.exports - to run with node
-module.exports = {sum, subtract, sumAsync, subtractAsync};
+module.exports = { sum, subtract, sumAsync, subtractAsync };
