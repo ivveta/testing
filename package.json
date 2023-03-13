@@ -1,0 +1,10 @@
+{
+  "name": "testing",
+  "version": "1.0.0",
+  "scripts": {
+    "prettier": "prettier --write ."
+  },
+  "devDependencies": {
+    "prettier": "^2.8.4"
+  }
+}
