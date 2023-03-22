@@ -12,7 +12,7 @@ test('loads greetings on click', async () => {
 
   const nameInput = screen.getByLabelText(/name/i);
 
-  // const button = screen.getByRole('button');
+  // const loadButton = screen.getByRole('button');
   const loadButton = screen.getByText(/load/i);
 
   nameInput.value = 'Mary';

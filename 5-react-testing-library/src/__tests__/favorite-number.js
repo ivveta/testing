@@ -24,6 +24,6 @@ test('entering an invalid value shows an error message', () => {
   expect(alert).toHaveTextContent(/the number is invalid/i);
   rerender(<FavoriteNumber max={10} />);
 
-  // to verified element is not rendered use query
+  // to verified element is not rendered use queryByRole - not getByRole
   expect(screen.queryByRole('alert')).toBeNull();
 });
