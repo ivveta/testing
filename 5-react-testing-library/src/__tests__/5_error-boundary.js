@@ -1,4 +1,4 @@
-import { render, fireEvent, screen } from '@testing-library/react';
+import { render, fireEvent, screen, queryByRole } from '@testing-library/react';
 import { reportError as mockReportError } from '../api';
 import { ErrorBoundary } from '../error-boundary';
 
@@ -30,12 +30,13 @@ function Bomb({ shouldThrow }) {
 test('calls reportError and renders that there was a problem', () => {
   mockReportError.mockResolvedValueOnce({ success: true });
 
-  const { rerender } = render(
+  const { rerender, debug } = render(
     <ErrorBoundary>
       <Bomb shouldThrow={false} />
     </ErrorBoundary>,
   );
 
+  // взрываем бомбу, проверяем наличие вывод ошибок
   rerender(
     <ErrorBoundary>
       <Bomb shouldThrow />
@@ -53,6 +54,24 @@ test('calls reportError and renders that there was a problem', () => {
   // должно было вызваться 2 раза: из jsdom и react, почему фактически 3 - непонятно
   expect(console.error).toHaveBeenCalledTimes(3);
 
-  // const tryAgainButton = screen.getByText('Try again?');
-  // fireEvent.click(tryAgainButton);
+  expect(screen.getByRole('alert').textContent).toMatchInlineSnapshot(
+    `"There was a problem."`,
+  );
+
+  console.error.mockClear();
+  mockReportError.mockClear();
+
+  rerender(
+    <ErrorBoundary>
+      <Bomb />
+    </ErrorBoundary>,
+  );
+
+  // ресетим ошибку - проверяем отсутствие вывода ошибки
+  fireEvent.click(screen.getByText(/try again/i));
+
+  expect(mockReportError).not.toHaveBeenCalled();
+  expect(console.error).not.toHaveBeenCalled();
+  expect(screen.queryByRole('alert')).not.toBeInTheDocument();
+  expect(screen.queryByText(/try again/i)).not.toBeInTheDocument();
 });

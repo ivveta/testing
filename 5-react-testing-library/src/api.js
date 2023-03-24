@@ -3,5 +3,5 @@ export const loadGreeting = async () => {
 };
 
 export const reportError = async () => {
-  return 'report complete';
+  return 'report error complete';
 };
