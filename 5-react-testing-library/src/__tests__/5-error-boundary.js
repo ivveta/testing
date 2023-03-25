@@ -1,6 +1,6 @@
-import { render, fireEvent, screen, queryByRole } from '@testing-library/react';
+import { render, fireEvent, screen } from '@testing-library/react';
 import { reportError as mockReportError } from '../api';
-import { ErrorBoundary } from '../error-boundary';
+import { ErrorBoundary } from '../5-error-boundary';
 
 jest.mock('../api');
 
@@ -27,21 +27,31 @@ function Bomb({ shouldThrow }) {
   }
 }
 
+/**
+wrapper при ререндере добавляется автоматически
+как работает wrapper
+
+render(
+ <ErrorBoundary>
+   <Bomb />
+ </ErrorBoundary>,
+)
+
+то же самое, что и
+
+render(
+  <Bomb />,
+  {wrapper: ErrorBoundary},
+)
+
+ */
 test('calls reportError and renders that there was a problem', () => {
   mockReportError.mockResolvedValueOnce({ success: true });
 
-  const { rerender, debug } = render(
-    <ErrorBoundary>
-      <Bomb shouldThrow={false} />
-    </ErrorBoundary>,
-  );
+  const { rerender, debug } = render(<Bomb />, { wrapper: ErrorBoundary });
 
   // взрываем бомбу, проверяем наличие вывод ошибок
-  rerender(
-    <ErrorBoundary>
-      <Bomb shouldThrow />
-    </ErrorBoundary>,
-  );
+  rerender(<Bomb shouldThrow />);
 
   // проверяет, что mockReportError вызвана с параметрами
   // error - любая ошибка
@@ -61,11 +71,7 @@ test('calls reportError and renders that there was a problem', () => {
   console.error.mockClear();
   mockReportError.mockClear();
 
-  rerender(
-    <ErrorBoundary>
-      <Bomb />
-    </ErrorBoundary>,
-  );
+  rerender(<Bomb />);
 
   // ресетим ошибку - проверяем отсутствие вывода ошибки
   fireEvent.click(screen.getByText(/try again/i));

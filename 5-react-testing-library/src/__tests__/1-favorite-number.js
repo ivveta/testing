@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import { FavoriteNumber } from '../favorite-number';
+import { FavoriteNumber } from '../1-favorite-number';
 import user from '@testing-library/user-event';
 
 test('renders a number input with a label "Favorite Number"', () => {
