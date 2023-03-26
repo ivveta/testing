@@ -6,6 +6,6 @@ export const reportError = async () => {
   return 'report error complete';
 };
 
-export const savePost = async () => {
-  return 'post saved';
+export const savePost = async (newPost) => {
+  return { done: true };
 };

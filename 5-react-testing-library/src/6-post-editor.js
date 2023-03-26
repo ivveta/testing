@@ -1,9 +1,12 @@
+import { redirect } from 'react-router-dom';
 import { useState } from 'react';
 import { savePost } from './api';
 
 export const Editor = ({ user }) => {
   const [isSaving, setIsSaving] = useState(false);
-  const handleSubmit = (e) => {
+  const [toRedirect, setToRedirect] = useState(false);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const { title, content, tags } = e.target.elements;
@@ -15,7 +18,12 @@ export const Editor = ({ user }) => {
     };
 
     setIsSaving(true);
-    savePost(newPost);
+
+    savePost(newPost).then(() => setToRedirect(true));
+
+    // if (toRedirect) {
+    return redirect('/');
+    // }
   };
 
   return (
