@@ -26,7 +26,7 @@ test('renders a form with title, content, tags, and a submit button', async () =
     tags: ['tag1', 'tag2'],
   };
 
-  mockSavePost.mockResolvedValueOnce();
+  mockSavePost.mockResolvedValueOnce({ isSuccess: true });
   render(<Editor user={fakeUser} />);
 
   screen.getByLabelText(/title/i).value = fakePost.title;

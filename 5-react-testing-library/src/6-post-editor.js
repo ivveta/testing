@@ -19,7 +19,8 @@ export const Editor = ({ user }) => {
 
     setIsSaving(true);
 
-    savePost(newPost).then(() => setToRedirect(true));
+    const { isSuccess } = await savePost(newPost);
+    setToRedirect(isSuccess);
   };
 
   if (toRedirect) {

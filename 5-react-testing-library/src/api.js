@@ -7,5 +7,5 @@ export const reportError = async () => {
 };
 
 export const savePost = async (newPost) => {
-  return { done: true };
+  return { isSuccess: true };
 };
