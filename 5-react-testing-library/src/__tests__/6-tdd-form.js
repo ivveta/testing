@@ -1,8 +1,7 @@
-import { screen, render, fireEvent, act } from '@testing-library/react';
+import { screen, render, fireEvent, waitFor } from '@testing-library/react';
 import { Editor } from '../6-post-editor';
 import { savePost as mockSavePost } from '../api';
 import { redirect as mockRedirect } from 'react-router-dom';
-import { wait } from '@testing-library/user-event/dist/utils';
 
 jest.mock('react-router-dom', () => {
   return {
@@ -47,9 +46,9 @@ test('renders a form with title, content, tags, and a submit button', async () =
     authorId: fakeUser.id,
   });
 
-  await act(
-    async () => await wait(expect(mockRedirect).toHaveBeenCalledWith('/')),
-  );
+  await waitFor(() => {
+    expect(mockRedirect).toHaveBeenCalledWith('/');
+  });
 
   // лучше не проверять, сколько раз вызывался mockRedirect, так как это детали имплементации,
   // которые не важны конечному пользователю

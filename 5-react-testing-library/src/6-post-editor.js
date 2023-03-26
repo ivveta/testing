@@ -20,11 +20,11 @@ export const Editor = ({ user }) => {
     setIsSaving(true);
 
     savePost(newPost).then(() => setToRedirect(true));
-
-    // if (toRedirect) {
-    return redirect('/');
-    // }
   };
+
+  if (toRedirect) {
+    return redirect('/');
+  }
 
   return (
     <form onSubmit={handleSubmit}>
