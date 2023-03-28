@@ -15,6 +15,7 @@ export const Editor = ({ user }) => {
       content: content.value,
       tags: tags.value.split(',').map((t) => t.trim()),
       authorId: user.id,
+      date: new Date().toISOString(),
     };
 
     setIsSaving(true);

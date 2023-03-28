@@ -3,6 +3,11 @@ import { Editor } from '../6-post-editor';
 import { savePost as mockSavePost } from '../api';
 import { redirect as mockRedirect } from 'react-router-dom';
 
+/**
+ * Тестирование даты: new Date()
+ * Сохраняемое значение проверяется в интервале - до сабмита формы и после
+ */
+
 jest.mock('react-router-dom', () => {
   return {
     redirect: jest.fn(() => null),
@@ -26,6 +31,8 @@ test('renders a form with title, content, tags, and a submit button', async () =
     tags: ['tag1', 'tag2'],
   };
 
+  const preDate = new Date().getTime();
+
   mockSavePost.mockResolvedValueOnce({ isSuccess: true });
   render(<Editor user={fakeUser} />);
 
@@ -44,7 +51,15 @@ test('renders a form with title, content, tags, and a submit button', async () =
   expect(mockSavePost).toHaveBeenCalledWith({
     ...fakePost,
     authorId: fakeUser.id,
+    // Тестирование даты: здесь просто проверяет на строку
+    date: expect.any(String),
   });
+
+  const postDate = new Date().getTime();
+  // выбираем из мока первый аргумент функции - и находим в нем дату
+  const date = new Date(mockSavePost.mock.calls[0][0].date).getTime();
+  expect(date).toBeGreaterThanOrEqual(preDate);
+  expect(date).toBeLessThanOrEqual(postDate);
 
   await waitFor(() => {
     expect(mockRedirect).toHaveBeenCalledWith('/');
