@@ -20,17 +20,19 @@ afterEach(() => {
   jest.clearAllMocks();
 });
 
+const fakeUser = {
+  id: 'user-1',
+};
+
+const fakePost = {
+  title: 'Test Title',
+  content: 'Test content',
+  tags: ['tag1', 'tag2'],
+};
+
+const postErrorText = 'test error';
+
 test('renders a form with title, content, tags, and a submit button', async () => {
-  const fakeUser = {
-    id: 'user-1',
-  };
-
-  const fakePost = {
-    title: 'Test Title',
-    content: 'Test content',
-    tags: ['tag1', 'tag2'],
-  };
-
   const preDate = new Date().getTime();
 
   mockSavePost.mockResolvedValueOnce({ isSuccess: true });
@@ -68,4 +70,22 @@ test('renders a form with title, content, tags, and a submit button', async () =
   // лучше не проверять, сколько раз вызывался mockRedirect, так как это детали имплементации,
   // которые не важны конечному пользователю
   // expect(mockRedirect).toHaveBeenCalledTimes(1);
+});
+
+test('renders an error message form the server', async () => {
+  mockSavePost.mockRejectedValueOnce({
+    isSuccess: false,
+    data: { error: postErrorText },
+  });
+
+  render(<Editor user={fakeUser} />);
+
+  const submitButton = screen.getByText(/submit/i);
+
+  fireEvent.click(submitButton);
+
+  const postError = await screen.findByRole('alert');
+
+  expect(postError).toHaveTextContent(postErrorText);
+  expect(submitButton).not.toBeDisabled();
 });

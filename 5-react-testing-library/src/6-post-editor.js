@@ -1,10 +1,17 @@
 import { redirect } from 'react-router-dom';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { savePost } from './api';
 
 export const Editor = ({ user }) => {
   const [isSaving, setIsSaving] = useState(false);
   const [toRedirect, setToRedirect] = useState(false);
+  const [postError, setPostError] = useState(null);
+
+  useEffect(() => {
+    if (toRedirect) {
+      return redirect('/');
+    }
+  }, [toRedirect]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -19,14 +26,14 @@ export const Editor = ({ user }) => {
     };
 
     setIsSaving(true);
-
-    const { isSuccess } = await savePost(newPost);
-    setToRedirect(isSuccess);
+    try {
+      await savePost(newPost);
+      setToRedirect(true);
+    } catch (response) {
+      setPostError(response.data.error);
+      setIsSaving(false);
+    }
   };
-
-  if (toRedirect) {
-    return redirect('/');
-  }
 
   return (
     <form onSubmit={handleSubmit}>
@@ -42,6 +49,7 @@ export const Editor = ({ user }) => {
       <button type="submit" disabled={isSaving}>
         Submit
       </button>
+      {postError && <div role="alert">{postError}</div>}
     </form>
   );
 };
