@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
-import { HiddenMessage } from '../hidden-message';
+import { HiddenMessage } from '../3-hidden-message';
 // import { wait } from '@testing-library/user-event/dist/utils';
 
 // mock, чтобы не ждать timeout

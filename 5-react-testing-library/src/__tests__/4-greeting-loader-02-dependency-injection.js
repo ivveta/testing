@@ -1,19 +1,18 @@
-import { render, fireEvent, screen, waitFor } from '@testing-library/react';
-import { GreetingLoader } from '../greeting-loader-01-mocking';
-import { loadGreeting as mockLoadGreeting } from '../api';
+// if environments doesn't support jest.mock , like storybook
 
-jest.mock('../api');
+import { render, fireEvent, screen, waitFor } from '@testing-library/react';
+import { GreetingLoader } from '../4-greeting-loader-02-dependency-injection';
 
 test('loads greetings on click', async () => {
+  const mockLoadGreeting = jest.fn();
   const testGreeting = 'TEST_GREETING';
 
   mockLoadGreeting.mockResolvedValueOnce({ data: { greeting: testGreeting } });
-  const { debug } = render(<GreetingLoader />);
+  render(<GreetingLoader loadGreeting={mockLoadGreeting} />);
 
   const nameInput = screen.getByLabelText(/name/i);
 
-  // const loadButton = screen.getByRole('button');
-  const loadButton = screen.getByText(/load/i);
+  const loadButton = screen.getByRole('button');
 
   nameInput.value = 'Mary';
   fireEvent.click(loadButton);
