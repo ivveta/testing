@@ -20,14 +20,28 @@ afterEach(() => {
   jest.clearAllMocks();
 });
 
-const fakeUser = {
-  id: 'user-1',
-};
+const renderEditor = () => {
+  const fakeUser = {
+    id: 'user-1',
+  };
 
-const fakePost = {
-  title: 'Test Title',
-  content: 'Test content',
-  tags: ['tag1', 'tag2'],
+  const fakePost = {
+    title: 'Test Title',
+    content: 'Test content',
+    tags: ['tag1', 'tag2'],
+  };
+
+  render(<Editor user={fakeUser} />);
+
+  if (fakePost) {
+    screen.getByLabelText(/title/i).value = fakePost.title;
+    screen.getByLabelText(/content/i).value = fakePost.content;
+    screen.getByLabelText(/tags/i).value = fakePost.tags.join(', ');
+  }
+
+  const submitButton = screen.getByText(/submit/i);
+
+  return { fakeUser, fakePost, submitButton };
 };
 
 const postErrorText = 'test error';
@@ -35,14 +49,8 @@ const postErrorText = 'test error';
 test('renders a form with title, content, tags, and a submit button', async () => {
   const preDate = new Date().getTime();
 
-  mockSavePost.mockResolvedValueOnce({ isSuccess: true });
-  render(<Editor user={fakeUser} />);
-
-  screen.getByLabelText(/title/i).value = fakePost.title;
-  screen.getByLabelText(/content/i).value = fakePost.content;
-  screen.getByLabelText(/tags/i).value = fakePost.tags.join(', ');
-
-  const submitButton = screen.getByText(/submit/i);
+  mockSavePost.mockResolvedValueOnce();
+  const { fakePost, fakeUser, submitButton } = renderEditor();
 
   expect(submitButton).not.toBeDisabled('disabled');
 
@@ -74,13 +82,9 @@ test('renders a form with title, content, tags, and a submit button', async () =
 
 test('renders an error message form the server', async () => {
   mockSavePost.mockRejectedValueOnce({
-    isSuccess: false,
     data: { error: postErrorText },
   });
-
-  render(<Editor user={fakeUser} />);
-
-  const submitButton = screen.getByText(/submit/i);
+  const { submitButton } = renderEditor();
 
   fireEvent.click(submitButton);
 
