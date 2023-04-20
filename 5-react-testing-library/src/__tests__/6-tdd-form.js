@@ -74,10 +74,6 @@ test('renders a form with title, content, tags, and a submit button', async () =
   await waitFor(() => {
     expect(mockRedirect).toHaveBeenCalledWith('/');
   });
-
-  // лучше не проверять, сколько раз вызывался mockRedirect, так как это детали имплементации,
-  // которые не важны конечному пользователю
-  // expect(mockRedirect).toHaveBeenCalledTimes(1);
 });
 
 test('renders an error message form the server', async () => {
