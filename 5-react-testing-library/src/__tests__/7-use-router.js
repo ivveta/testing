@@ -3,14 +3,15 @@ import { Main } from '../7-use-router';
 // импорт MemoryRouter, чтобы создать собственную историю
 import { Link, MemoryRouter } from 'react-router-dom';
 
-test('main renders About and Home and I can navigate to this pages', () => {
-  render(
-    // <MemoryRouter initialEntries={['/']}>
-    // initialEntries={['/']} - значение по-умолчанию
-    <MemoryRouter>
-      <Main />
-    </MemoryRouter>,
+const renderWithRouter = (ui, { route = '/', ...renderOptions } = {}) => {
+  const Wrapper = ({ children }) => (
+    <MemoryRouter initialEntries={[route]}>{children}</MemoryRouter>
   );
+
+  return render(ui, { wrapper: Wrapper, ...renderOptions });
+};
+test('main renders About and Home and I can navigate to this pages', () => {
+  renderWithRouter(<Main />);
 
   const homeLink = screen.getByText(/about/i);
 
@@ -20,11 +21,7 @@ test('main renders About and Home and I can navigate to this pages', () => {
 });
 
 test('landing on a bad page shows no match component', () => {
-  const { debug } = render(
-    <MemoryRouter initialEntries={['/something-that-does-not-match']}>
-      <Main />
-    </MemoryRouter>,
-  );
+  renderWithRouter(<Main />, { route: '/something-that-does-not-match' });
 
   expect(screen.getByRole('heading')).toHaveTextContent(/404/i);
 });
